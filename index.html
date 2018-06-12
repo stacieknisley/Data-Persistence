@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset- "UTF-8">
+  <title>Data Persistence</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet"> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->  
+  <script src="assets/javascript/trainTime.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+
+  
+  
+</head>
+<body>     
+
+<!-- Head Title Box -->
+<div class="container" id="btnDiv">
+
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Anytime is Train Time</h1>
+          <p class="lead">Choo Choo. Chee Chee.</p>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+          <br>
+          <!-- First panel is the Heading of each column -->
+          <div class="card">
+            <div class="card-header">
+              <strong>
+                <i class="currentTrSched"></i> Current Train Schedule</strong>
+            </div>
+
+
+             <div class="card-body"> 
+                    <table class="table">
+                            <!-- Header> -->
+                            <thead>
+                              <tr>
+                                <th scope="col">Train Name</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Frequency (min)</th>
+                                <th scope="col">Next Arrival</th>
+                                <th scope="col">Minutes Away</th>
+                              </tr>
+                            </thead>
+                           
+                           
+                            <tbody>
+                              <tr>
+                                <th scope="row">Trenton Express</th>
+                                <td>Trenton</td>
+                                <td>25</td>
+                                <td>05:35 PM</td>
+                                <td>10</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Oregon Trail</th>
+                                <td>Salem, Oregon</td>
+                                <td>3600</td>
+                                <td>01:39 PM</td>
+                                <td>1154</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Midnight Carriage</th>
+                                <td>Philadelphia</td>
+                                <td>15</td>
+                                <td>05:35 PM</td>
+                                <td>10</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Sing Sing Caravan</th>
+                                <td>Atlanta</td>
+                                <td>45</td>
+                                <td>05:53 PM</td>
+                                <td>28</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Boston Bus</th>
+                                <td>Boston</td>
+                                <td>65</td>
+                                <td>05:50 PM</td>
+                                <td>25</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">California Caravan</th>
+                                <td>San Francisco</td>
+                                <td>6000</td>
+                                <td>01:25 PM</td>
+                                <td>25</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Analben's Train</th>
+                                <td>Florida</td>
+                                <td>25</td>
+                                <td>05:28 PM</td>
+                                <td>3</td>
+                              </tr>
+                              <!-- ADD A TABLE ROW FOR ADDITIONAL TRAINS -->
+                              <tr>
+                                <th scope="rowTraininput" id="newTrain">  </th>
+                                <td id="newDestination"> </td>
+                                <td id="newTime">  </td>
+                                <td id="newFrequency">  </td>
+                                <td id="newMinutesAway"> </td>
+                                <td id="newhr"> </td> 
+                                </tr>
+
+                            </tbody>
+                          </table>
+
+    
+
+</div>
+</div>
+
+
+
+<!-- Form to Add Additional Trains -->
+ <div class="row">
+ <div class="col-sm-12">
+  <br>
+ <!-- First panel is the Heading of each column -->
+<div class="card">
+    <div class="card-header">
+        <strong>
+         <i class="currentTrSched"></i> Add Train</strong>
+    </div>
+
+
+
+<div class="card-body"> 
+
+
+            
+                            <form>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput">Train Name</label>
+                                  <input type="text" class="form-control" id="name">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Destination</label>
+                                  <input type="text" class="form-control" id="destination">
+                               </div>
+                                  <div class="form-group">
+                                  <label for="formGroupExampleInput2">Train Time (HH:mm - military time) </label>
+                                  <input type="text" class="form-control" id="time">
+                                </div>
+                              <div class="form-group">
+                                    <label for="formGroupExampleInput2">Frequency (min)</label>
+                                    <input type="text" class="form-control" id="frequency">
+                                </div>
+                             
+                             </form>
+                             </div>
+        
+         
+          <div>
+
+
+
+            <input class="btn btn-primary" type="submit" value="Submit" id="submit">
+             <!-- <button type="submit" class="btn btn-default" id="run-search"> --> 
+             
+ <br>
+ <hr>
+ <br>
+</div>
+ </div>
+
+</div>
+</div>
+
+</div>
+
+
+
+</div>
+
+
+</body>
+
+</html>
