@@ -13,44 +13,89 @@ $(document).ready(function() {
 };
 firebase.initializeApp(config);
 
+var db = firebase.database();
 var name = "";
 var destination = "";
-var time = "";
+var train_time = "";
 var frequency = "";
+var next_arr = "";
+var min_away = 0;
 
 $("#submit").on("click", function (){
   name = $("#name").val().trim();
   destination = $("#destination").val().trim();
-  time = $("#time").val().trim();
+  train_time = $("#time").val().trim();
   frequency = $("#frequency").val().trim();
 
-  firebase.database().ref().push({
+  $("#name").val("");
+  $("#destination").val("");
+  $("#time").val("");
+  $("#frequency").val("");
+
+
+  db.ref().push({
     trainName: name,
     destination: destination,
-    time: time,
-    frequency: frequency,
+    train_time: train_time,
+    Frequency: frequency,
     dateAdded:firebase.database.ServerValue.TIMESTAMP
-  })
+  });
 
-})
-
-firebase.database().ref().on("child_added",function(snapshot){
-$("#newTrain").append("<p>"+snapshot.val().train+"</p>");
-("#newDestination").append("<p>"+snapshot.val().destination+"</p>");
-("#newTime").append("<p>"+snapshot.val().time+"</p>");
-("#newFrequency").append("<p>"+snapshot.val().frequency+"</p>");
-("#newMinutesAway").append("<p>"+snapshot.val().minutes_away+"</p>");
-("#newhr").append("<hr>)");
-
-})
-
-firebase.database().ref().orderByChild("dateAdded").limitToLast(1).on("child_added",function(snapshot){
-  $("#newTrain").html(snapshot.val().name);
-  $("#newDestination").html(snapshot.val().destination);
-  $("#newTime").html(snapshot.val().time);
-  $("#newFrequency").html(snapshot.val().frequency);
 });
 
+function train_min() {
+  // datbase name or object name?????
+  db.ref().child('data-persistence-62016').once('value', function (snapshot) {
+      snapshot.forEach(function (child_snap) {
+          newTime = moment().format('X');
+          db.ref('data-persistence-62016/' + child_snap.key).update({
+              train_time: newTime,
+          })
+      })
+  });
+};
+
+setInterval(train_min, 60000);
+
+db.ref().child('data-persistence-62016').on('value', function (snapshot) {
+  $('tbody').empty();
+
+}, function (errorObject) {
+  console.log("Errors handled: " + errorObject.code);
+});
+
+
+db.ref().orderByChild("dateAdded").on("child_added", function (snapshot) {
+  // storing the snapshot.val() in a variable for convenience
+  var snap_val = snapshot.val(); //snapshot value
+  //data from database
+  var t_n = snap_val.trainName; //train name
+  var t_d = snap_val.destination;//train destination
+  var t_f = snap_val.Frequency;//train freq
+  var t_t = snap_val.train_time;//train start time
+  var diffTime = moment().diff(moment.unix(train_time), "minutes");
+  console.log("diff of time " + diffTime);
+  var timeRemainder = moment().diff(moment.unix(t_t), "minutes") % t_f;
+  console.log(timeRemainder);
+  var min = t_f - timeRemainder;
+  console.log(min);
+  var nextTrainArrival = moment().add(min, "m").format("hh:mm A");
+  // Test for correct times and info
+  console.log("min" + min);
+  console.log("nxttrainarr" + nextTrainArrival);
+  console.log("now" + moment().format("hh:mm A"));
+  console.log("next train" + nextTrainArrival);
+  console.log(moment().format("X"));
+
+  // Append train info to table on page
+  $("#train_details").append("<tr>" + "<td>" + t_n + "</td>" + "<td>" + t_d + "</td>" +
+    "<td>" + t_f + "</td>" + "<td>" + nextTrainArrival + "</td>" + "<td>" + min + "</td>" + "</tr>");
+  // Handle the errors
+
+}), function (errorObject) {
+  console.log("Errors handled: " + errorObject.code);
+}
+});
 // set variable for database to firebase
 // var database = firebase.database();
 

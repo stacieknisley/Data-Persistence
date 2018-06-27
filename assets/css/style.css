@@ -30,10 +30,16 @@
 }
 
 [class | d-flex bd-highlight] {  
-      text-align: left;
+      text-align: left
 }
 
 
+body { 
+      background-image: url("../assets/images/train.jpg"); 
+      background-repeat: no-repeat; 
+      background-attachment: fixed;
+      background-position: center;
+}
 
 
 /* 

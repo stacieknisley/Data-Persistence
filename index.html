@@ -11,15 +11,21 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet"> -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->  
-  <script src="assets/javascript/trainTime.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+   <script src="assets/javascript/trainTime.js"></script>
+  
+   
 
-  
-  
 </head>
-<body>     
+<body> 
+
+<!-- <img src="assets/images/images_train.jpg" alt="traintracks" style="width:100%" "height:100%" "position: absolute" "left:0" "top:0" "z-index -1;"> -->
 
 <!-- Head Title Box -->
+
+
 <div class="container" id="btnDiv">
 
 
@@ -57,7 +63,7 @@
                             </thead>
                            
                            
-                            <tbody>
+                            <tbody id= "train_details">
                               <tr>
                                 <th scope="row">Trenton Express</th>
                                 <td>Trenton</td>
@@ -72,7 +78,7 @@
                                 <td>01:39 PM</td>
                                 <td>1154</td>
                               </tr>
-                              <tr>
+                              <!-- <tr>
                                 <th scope="row">Midnight Carriage</th>
                                 <td>Philadelphia</td>
                                 <td>15</td>
@@ -106,7 +112,7 @@
                                 <td>25</td>
                                 <td>05:28 PM</td>
                                 <td>3</td>
-                              </tr>
+                              </tr> -->
                               <!-- ADD A TABLE ROW FOR ADDITIONAL TRAINS -->
                               <tr>
                                 <th scope="rowTraininput" id="newTrain">  </th>
@@ -187,6 +193,7 @@
 
 
 </div>
+
 
 
 </body>
