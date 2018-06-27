@@ -65,6 +65,7 @@ db.ref().child('data-persistence-62016').on('value', function (snapshot) {
 });
 
 
+
 db.ref().orderByChild("dateAdded").on("child_added", function (snapshot) {
   // storing the snapshot.val() in a variable for convenience
   var snap_val = snapshot.val(); //snapshot value
